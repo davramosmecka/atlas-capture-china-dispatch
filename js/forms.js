@@ -22,6 +22,18 @@ function buildHubOptions(selectedValue) {
   return opts.join('');
 }
 
+function buildTeamOptions(selectedValue) {
+  const opts = ['<option value="">' + t('selectTeam') + '</option>'];
+  TEAM_OPTIONS.forEach(team => {
+    const sel = team === selectedValue ? ' selected' : '';
+    opts.push('<option value="' + team + '"' + sel + '>' + team + '</option>');
+  });
+  return opts.join('');
+}
+
+// Single-hub deployment: hub is hardcoded to China, no UI input needed.
+const FIXED_HUB = HUBS[0];
+
 function defaultHandoffTime() {
   // Default to today + 2 hours, formatted for datetime-local input
   const d = new Date(Date.now() + 2 * 60 * 60 * 1000);
@@ -37,12 +49,10 @@ function renderSDForm() {
     <div class="screen">
       <button class="link-back" data-action="goto-home">← ${t('backToHome')}</button>
       <h1>${t('sdFormHeading')}</h1>
+      <div class="hub-chip">${t('hub')}: <strong>${FIXED_HUB}</strong></div>
 
       <form id="sd-form" novalidate>
-        <label class="field">
-          <span class="field-label">${t('hub')} *</span>
-          <select name="hub" required>${buildHubOptions(id.hub)}</select>
-        </label>
+        <input type="hidden" name="hub" value="${FIXED_HUB}" />
 
         <label class="field">
           <span class="field-label">${t('teamName')} *</span>
@@ -50,8 +60,8 @@ function renderSDForm() {
         </label>
 
         <label class="field">
-          <span class="field-label">${t('businessId')}</span>
-          <input type="text" name="business_id" placeholder="${t('businessIdPlaceholder')}" value="${escapeAttr(id.business_id)}" autocomplete="off" />
+          <span class="field-label">${t('teamId')} *</span>
+          <select name="business_id" required>${buildTeamOptions(id.business_id)}</select>
         </label>
 
         <label class="field">
@@ -84,7 +94,7 @@ async function handleSDSubmit(formEl) {
   const btn = formEl.querySelector('#sd-submit-btn');
 
   errEl.hidden = true;
-  if (!data.hub || !data.team_name || !data.sd_count_submitted || !data.expected_handoff_time) {
+  if (!data.hub || !data.team_name || !data.business_id || !data.sd_count_submitted || !data.expected_handoff_time) {
     errEl.textContent = t('errRequired');
     errEl.hidden = false;
     return;
@@ -109,6 +119,7 @@ async function handleSDSubmit(formEl) {
     summary: [
       [t('hub'), data.hub],
       [t('teamName'), data.team_name],
+      [t('teamId'), data.business_id],
       [t('sdCount'), data.sd_count_submitted],
       [t('expectedHandoff'), formatDateTime(data.expected_handoff_time)]
     ],
@@ -129,12 +140,10 @@ function renderReturnFormStep1() {
       <button class="link-back" data-action="goto-home">← ${t('backToHome')}</button>
       <h1>${t('retFormHeading')}</h1>
       <p class="step-label">${t('retStep1Title')}</p>
+      <div class="hub-chip">${t('hub')}: <strong>${FIXED_HUB}</strong></div>
 
       <form id="ret-step1-form" novalidate>
-        <label class="field">
-          <span class="field-label">${t('hub')} *</span>
-          <select name="hub" required>${buildHubOptions(s.hub || id.hub)}</select>
-        </label>
+        <input type="hidden" name="hub" value="${FIXED_HUB}" />
 
         <label class="field">
           <span class="field-label">${t('teamName')} *</span>

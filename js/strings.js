@@ -23,6 +23,8 @@ const STRINGS = {
     businessId: 'Business ID',
     businessIdPlaceholder: 'Optional — leave blank if not applicable',
     selectHub: 'Select hub…',
+    teamId: 'Team ID',
+    selectTeam: 'Select team…',
 
     // SD card form
     sdFormHeading: 'SD Card Dispatch',

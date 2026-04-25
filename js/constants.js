@@ -1,5 +1,18 @@
 // ── Hubs ─────────────────────────────────────────────────────────────────────
-const HUBS = ['Manila', 'Jakarta', 'Bali', 'HCM'];
+const HUBS = ['China'];
+
+// ── Team ID options (SD card form dropdown) ─────────────────────────────────
+const TEAM_OPTIONS = [
+  'Business - Shenzhen - Ext - Fujian Partner',
+  'Business - Shenzhen - Ext - Gao Ming',
+  'Business - Shenzhen - Ext - Kylar',
+  'Business - Shenzhen - Ext - Liu Yiyu',
+  'Business - Shenzhen - Ext - Mr Ma',
+  'Business - Shenzhen - Ext - Mr Ying',
+  'Business - Shenzhen - Ext - Paul',
+  'Business - Shenzhen - Ext - Sandu',
+  'Business - Shenzhen - Ext - Wang Qin'
+];
 
 // ── Statuses ─────────────────────────────────────────────────────────────────
 const SD_STATUSES = ['Submitted', 'In Transit', 'Received', 'Processed'];

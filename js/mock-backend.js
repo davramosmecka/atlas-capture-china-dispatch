@@ -50,25 +50,25 @@ function mockSeedData() {
     sd_card_submissions: [
       {
         submission_id: 'SD-DEMO-A1B2', timestamp: hours(2),
-        hub: 'Manila', team_name: 'Cebu Cab Co.', business_id: 'MNL-014',
+        hub: 'China', team_name: 'Fujian Partner', business_id: 'Business - Shenzhen - Ext - Fujian Partner',
         sd_count_submitted: '24', expected_handoff_time: fwd(3), notes: '',
         status: 'Submitted', sd_count_actual: '', variance: '', updated_at: hours(2)
       },
       {
         submission_id: 'SD-DEMO-C3D4', timestamp: hours(8),
-        hub: 'Jakarta', team_name: 'GoCar Jakarta', business_id: 'JKT-007',
+        hub: 'China', team_name: 'Mr Ma', business_id: 'Business - Shenzhen - Ext - Mr Ma',
         sd_count_submitted: '36', expected_handoff_time: hours(2), notes: 'Driver dropping off at 4pm',
         status: 'In Transit', sd_count_actual: '', variance: '', updated_at: hours(4)
       },
       {
         submission_id: 'SD-DEMO-E5F6', timestamp: hours(26),
-        hub: 'Bali', team_name: 'Bali Scooter Crew', business_id: '',
+        hub: 'China', team_name: 'Kylar', business_id: 'Business - Shenzhen - Ext - Kylar',
         sd_count_submitted: '12', expected_handoff_time: hours(20), notes: '',
         status: 'Received', sd_count_actual: '11', variance: '-1', updated_at: hours(18)
       },
       {
         submission_id: 'SD-DEMO-G7H8', timestamp: hours(48),
-        hub: 'HCM', team_name: 'Saigon Tuk Tuk', business_id: 'HCM-022',
+        hub: 'China', team_name: 'Paul', business_id: 'Business - Shenzhen - Ext - Paul',
         sd_count_submitted: '20', expected_handoff_time: hours(40), notes: '',
         status: 'Processed', sd_count_actual: '20', variance: '0', updated_at: hours(36)
       }
@@ -76,7 +76,7 @@ function mockSeedData() {
     device_return_requests: [
       {
         request_id: 'RET-DEMO-J1K2', timestamp: hours(3),
-        hub: 'Manila', team_name: 'Cebu Cab Co.', business_id: 'MNL-014',
+        hub: 'China', team_name: 'Fujian Partner', business_id: 'Business - Shenzhen - Ext - Fujian Partner',
         reason: 'broken_rma',
         multicam_count: '2', multicam_ids: 'MC-1041, MC-1058',
         cm5_count: '1', cm5_ids: 'CM5-2207',
@@ -87,7 +87,7 @@ function mockSeedData() {
       },
       {
         request_id: 'RET-DEMO-L3M4', timestamp: hours(20),
-        hub: 'Jakarta', team_name: 'GoCar Jakarta', business_id: 'JKT-007',
+        hub: 'China', team_name: 'Mr Ma', business_id: 'Business - Shenzhen - Ext - Mr Ma',
         reason: 'end_of_cycle',
         multicam_count: '8', multicam_ids: 'MC-1100, MC-1101, MC-1102, MC-1103, MC-1104, MC-1105, MC-1106, MC-1107',
         cm5_count: '0', cm5_ids: '',
@@ -98,7 +98,7 @@ function mockSeedData() {
       },
       {
         request_id: 'RET-DEMO-N5P6', timestamp: hours(50),
-        hub: 'Bali', team_name: 'Bali Scooter Crew', business_id: '',
+        hub: 'China', team_name: 'Sandu', business_id: 'Business - Shenzhen - Ext - Sandu',
         reason: 'broken_rma',
         multicam_count: '0', multicam_ids: '',
         cm5_count: '3', cm5_ids: 'CM5-2301, CM5-2302, CM5-2303',
@@ -109,7 +109,7 @@ function mockSeedData() {
       },
       {
         request_id: 'RET-DEMO-Q7R8', timestamp: hours(96),
-        hub: 'HCM', team_name: 'Saigon Tuk Tuk', business_id: 'HCM-022',
+        hub: 'China', team_name: 'Wang Qin', business_id: 'Business - Shenzhen - Ext - Wang Qin',
         reason: 'end_of_cycle',
         multicam_count: '4', multicam_ids: 'MC-1201, MC-1202, MC-1203, MC-1204',
         cm5_count: '4', cm5_ids: 'CM5-2401, CM5-2402, CM5-2403, CM5-2404',
