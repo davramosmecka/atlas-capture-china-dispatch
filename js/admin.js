@@ -252,6 +252,7 @@ function renderRetTable() {
             <th>${t('adminColHub')}</th>
             <th>${t('adminColTeam')}</th>
             <th>${t('adminColReason')}</th>
+            <th>${t('adminColSets')}</th>
             <th>${t('adminColMulticam')}</th>
             <th>${t('adminColCM5')}</th>
             <th>${t('adminColStatus')}</th>
@@ -279,6 +280,7 @@ function retRowHTML(r) {
         ${r.business_id ? `<div class="muted">${escapeText(r.business_id)}</div>` : ''}
       </td>
       <td>${reasonLabel}</td>
+      <td class="num">${escapeText(r.sets_returning || '0')} / ${escapeText(r.sets_needed || '0')}</td>
       <td class="num">${escapeText(r.multicam_count || '0')} / ${escapeText(r.replacement_multicam_needed || '0')}</td>
       <td class="num">${escapeText(r.cm5_count || '0')} / ${escapeText(r.replacement_cm5_needed || '0')}</td>
       <td>${statusBadge(r.status)}</td>
@@ -291,7 +293,7 @@ function retRowHTML(r) {
     </tr>
     ${expanded ? `
       <tr class="expand-content">
-        <td colspan="9">
+        <td colspan="10">
           <div class="expand-grid">
             ${r.fault_description ? `<div><strong>${t('adminFaultLabel')}:</strong><br/>${escapeText(r.fault_description)}</div>` : ''}
             ${r.multicam_ids ? `<div><strong>${t('adminMulticamIds')}:</strong><br/>${escapeText(r.multicam_ids)}</div>` : ''}
@@ -309,7 +311,7 @@ function retRowHTML(r) {
 
 function statusBadge(status) {
   const c = STATUS_COLORS[status] || { bg: '#e5e7eb', fg: '#374151' };
-  return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeText(status)}</span>`;
+  return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeText(statusLabel(status))}</span>`;
 }
 
 function bindTableActions(container) {

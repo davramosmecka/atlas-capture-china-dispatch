@@ -27,6 +27,7 @@ const HEADERS_SD = [
 
 const HEADERS_RET = [
   'request_id', 'timestamp', 'hub', 'team_name', 'business_id', 'reason',
+  'sets_returning', 'sets_needed',
   'multicam_count', 'multicam_ids', 'cm5_count', 'cm5_ids',
   'replacement_multicam_needed', 'replacement_cm5_needed',
   'fault_description', 'photo_urls', 'status', 'notes', 'updated_at'
@@ -105,6 +106,8 @@ function submitDeviceReturn(p) {
   const now = new Date().toISOString();
   const row = [
     id, now, p.hub, p.team_name, p.business_id || '', p.reason,
+    Number(p.sets_returning) || 0,
+    Number(p.sets_needed) || 0,
     mcCount, p.multicam_ids || '',
     cmCount, p.cm5_ids || '',
     Number(p.replacement_multicam_needed) || 0,
@@ -144,12 +147,14 @@ function updateDeviceStatus(p) {
   if (!p.request_id) return { success: false, error: 'request_id required' };
   const sheet = getOrCreateTab(TAB_RET, HEADERS_RET);
   const data = sheet.getDataRange().getValues();
+  // After adding sets_returning + sets_needed (cols 7-8), status/notes/updated_at
+  // shift: status now col 17, notes col 18, updated_at col 19.
   for (let i = 1; i < data.length; i++) {
     if (String(data[i][0]) === String(p.request_id)) {
       const now = new Date().toISOString();
-      if (p.status) sheet.getRange(i + 1, 15).setValue(p.status);
-      if (p.notes !== undefined) sheet.getRange(i + 1, 16).setValue(p.notes);
-      sheet.getRange(i + 1, 17).setValue(now);
+      if (p.status) sheet.getRange(i + 1, 17).setValue(p.status);
+      if (p.notes !== undefined) sheet.getRange(i + 1, 18).setValue(p.notes);
+      sheet.getRange(i + 1, 19).setValue(now);
       updateHubSummary(String(data[i][2]));
       return { success: true, data: { request_id: p.request_id } };
     }
@@ -225,9 +230,10 @@ function updateHubSummary(hub) {
   let retOpen = 0;
   let openRmas = 0;
   const retData = retSheet.getDataRange().getValues();
+  // status column is index 16 (0-indexed) after sets fields were inserted
   for (let i = 1; i < retData.length; i++) {
     if (String(retData[i][2]) === hub) {
-      const status = String(retData[i][14]);
+      const status = String(retData[i][16]);
       const reason = String(retData[i][5]);
       if (status !== 'Closed') {
         retOpen += 1;

@@ -37,6 +37,25 @@ const RETURN_REASONS = [
   { value: 'end_of_cycle', label: 'reasonEndOfCycle' }
 ];
 
+// ── Bilingual labels for status enum values ─────────────────────────────────
+const STATUS_LABELS_ZH = {
+  'Submitted': '已提交',
+  'In Transit': '运输中',
+  'Received': '已收到',
+  'Processed': '已处理',
+  'Reviewing': '审核中',
+  'Approved': '已批准',
+  'Shipped': '已发货',
+  'Closed': '已关闭'
+};
+
+function statusLabel(s) {
+  if (typeof BILINGUAL !== 'undefined' && BILINGUAL && STATUS_LABELS_ZH[s]) {
+    return s + ' / ' + STATUS_LABELS_ZH[s];
+  }
+  return s;
+}
+
 // ── localStorage keys ────────────────────────────────────────────────────────
 const LS_HUB = 'mecka_dispatch_hub';
 const LS_TEAM = 'mecka_dispatch_team';

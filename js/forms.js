@@ -218,6 +218,18 @@ function renderReturnFormStep2() {
       <p class="step-label">${t('retStep2Title')}</p>
 
       <form id="ret-step2-form" novalidate>
+        <div class="sets-row">
+          <label class="field">
+            <span class="field-label">${t('setsReturning')}</span>
+            <input type="number" name="sets_returning" min="0" inputmode="numeric" value="${escapeAttr(s.sets_returning || '')}" />
+          </label>
+          <label class="field">
+            <span class="field-label">${t('setsNeeded')}</span>
+            <input type="number" name="sets_needed" min="0" inputmode="numeric" value="${escapeAttr(s.sets_needed || '')}" />
+          </label>
+        </div>
+        <p class="sets-help">${t('setsHelp')}</p>
+
         <div class="device-grid">
           <fieldset class="device-card">
             <label class="toggle-row">
@@ -225,6 +237,7 @@ function renderReturnFormStep2() {
               <span class="toggle-label">${t('returningMulticam')}</span>
             </label>
             <div class="device-fields" data-fields="multicam" ${mcOn ? '' : 'hidden'}>
+              <div class="reminder">⚠️ ${t('replaceReminder')}</div>
               <label class="field">
                 <span class="field-label">${t('deviceCount')}</span>
                 <input type="number" name="multicam_count" min="1" inputmode="numeric" value="${escapeAttr(s.multicam_count || '')}" />
@@ -247,6 +260,7 @@ function renderReturnFormStep2() {
               <span class="toggle-label">${t('returningCM5')}</span>
             </label>
             <div class="device-fields" data-fields="cm5" ${cmOn ? '' : 'hidden'}>
+              <div class="reminder">⚠️ ${t('replaceReminder')}</div>
               <label class="field">
                 <span class="field-label">${t('deviceCount')}</span>
                 <input type="number" name="cm5_count" min="1" inputmode="numeric" value="${escapeAttr(s.cm5_count || '')}" />
@@ -349,6 +363,8 @@ async function handleReturnStep2Submit(formEl) {
     business_id: s.business_id || '',
     reason: s.reason,
     fault_description: s.fault_description || '',
+    sets_returning: Number(s.sets_returning) || 0,
+    sets_needed: Number(s.sets_needed) || 0,
     multicam_count: mcOn ? (Number(s.multicam_count) || 0) : 0,
     multicam_ids: mcOn ? normalizeIds(s.multicam_ids) : '',
     cm5_count: cmOn ? (Number(s.cm5_count) || 0) : 0,
@@ -374,6 +390,10 @@ async function handleReturnStep2Submit(formEl) {
     [t('teamName'), payload.team_name],
     [t('returnReason'), payload.reason === 'broken_rma' ? t('reasonBrokenRMA') : t('reasonEndOfCycle')]
   ];
+  if (payload.sets_returning || payload.sets_needed) {
+    summary.push([t('setsReturning'), String(payload.sets_returning)]);
+    summary.push([t('setsNeeded'), String(payload.sets_needed)]);
+  }
   if (payload.multicam_count) {
     summary.push(['Multicam', payload.multicam_count + ' returned, ' + payload.replacement_multicam_needed + ' replacements']);
   }

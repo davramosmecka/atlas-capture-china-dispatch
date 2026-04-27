@@ -152,6 +152,31 @@ h2 { font-size: 18px; font-weight: 600; margin: 24px 0 12px; }
 }
 .hub-chip strong { color: var(--ink); font-weight: 600; }
 
+/* Sets row at top of device-return step 2 */
+.sets-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.sets-help {
+  margin: 0 0 16px;
+  color: var(--ink-mute);
+  font-size: 13px;
+}
+
+/* Per-device replacement reminder */
+.reminder {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #7c2d12;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
 form { display: flex; flex-direction: column; gap: 16px; }
 
 .field {
